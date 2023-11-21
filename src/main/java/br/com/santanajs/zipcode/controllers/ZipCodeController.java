@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.santanajs.zipcode.exceptions.NoContentException;
+import br.com.santanajs.zipcode.exceptions.NotReadyException;
 import br.com.santanajs.zipcode.models.Address;
 import br.com.santanajs.zipcode.services.ZipCodeService;
 
@@ -22,10 +24,8 @@ public class ZipCodeController {
   }
 
   @GetMapping("/zipcode/{zipcode}")
-  public Address getAddressByZipCode(@PathVariable(value="zipcode") String zipcode){
-    Address address = new Address();
-    address.setZipcode(zipcode);
-    return address;
+  public Address getAddressByZipCode(@PathVariable(value="zipcode") String zipcode) throws NoContentException, NotReadyException{
+    return this.service.getAddressByZipCode(zipcode);
   }
 
 } 
